@@ -25,7 +25,12 @@ namespace Acervo.Infrastructure.Repositories
 
         public async Task<Result<List<Book>>> GetAllBook()
         {
-            List<Book> Books = await _context.Books.ToListAsync();
+            List<Book>? Books = await _context.Books.ToListAsync();
+
+            if(Books == null || Books.Count == 0)
+            {
+                return Result<List<Book>>.Failure("Nenhum livro cadastrado!");
+            }
 
             return Result<List<Book>>.Success(Books);
         }
