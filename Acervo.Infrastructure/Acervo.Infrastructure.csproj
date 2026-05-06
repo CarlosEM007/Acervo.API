@@ -16,9 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Mapping\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acervo.Domain\Acervo.Domain.csproj" />
   </ItemGroup>
 
 </Project>
