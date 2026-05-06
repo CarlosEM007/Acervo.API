@@ -1,9 +1,10 @@
-﻿using Acervo.Domain.Entities;
+﻿using Acervo.Domain.Common;
+using Acervo.Domain.Entities;
 
 namespace Acervo.Domain.Interfaces
 {
     public interface IBookRepository: IRepository<Book>
     {
-        Task<List<Book>> GetAllBook();
+        Task<Result<List<Book>>> GetAllBook();
     }
 }

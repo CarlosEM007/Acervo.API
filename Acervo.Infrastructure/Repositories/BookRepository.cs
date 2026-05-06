@@ -2,6 +2,8 @@
 using Acervo.Domain.Entities;
 using Acervo.Domain.Interfaces;
 using Acervo.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Acervo.Infrastructure.Repositories
 {
@@ -14,29 +16,45 @@ namespace Acervo.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Result> Delete(long Id)
+        public Result Delete(Book Entity)
         {
-            throw new NotImplementedException();
+            _context.Books.Remove(Entity);
+
+            return Result.Success();
         }
 
-        public async Task<List<Book>> GetAllBook()
+        public async Task<Result<List<Book>>> GetAllBook()
         {
-            throw new NotImplementedException();
+            List<Book> Books = await _context.Books.ToListAsync();
+
+            return Result<List<Book>>.Success(Books);
         }
 
         public async Task<Result<Book>> GetById(long Id)
         {
-            throw new NotImplementedException();
+            Book? Book = await _context.Books.FirstOrDefaultAsync(b => b.Id == Id);
+
+            if(Book == null)
+            {
+                return Result<Book>.Failure("Livro inexistente!");
+            }
+
+            return Result<Book>.Success(Book);
         }
 
         public async Task<Result> Insert(Book Entity)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(Entity);
+
+            return Result.Success();
         }
 
         public async Task<Result> Update(Book Entity)
         {
-            throw new NotImplementedException();
+            _context.Books.Update(Entity);
+            await _context.SaveChangesAsync();
+
+            return Result.Success();
         }
     }
 }
