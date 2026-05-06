@@ -24,7 +24,7 @@ namespace Acervo.Infrastructure.Persistence.Configurations
 
             builder.Property(p => p.Release)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType("timestamp without time zone");
         }
     }
 }
