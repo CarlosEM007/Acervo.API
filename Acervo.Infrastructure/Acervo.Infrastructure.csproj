@@ -21,4 +21,8 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Acervo.Domain\Acervo.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
