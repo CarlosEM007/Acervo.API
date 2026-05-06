@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Acervo.Domain\Acervo.Domain.csproj" />
+    <ProjectReference Include="..\Acervo.Infrastructure\Acervo.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
