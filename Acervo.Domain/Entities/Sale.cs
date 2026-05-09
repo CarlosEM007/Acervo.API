@@ -1,5 +1,5 @@
 ﻿using Acervo.Domain.Exceptions;
-using Acervo.Domain.Enums;
+using Acervo.Domain.Enum;
 
 namespace Acervo.Domain.Entities
 {

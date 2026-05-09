@@ -1,4 +1,4 @@
-﻿namespace Acervo.Domain.Enums
+﻿namespace Acervo.Domain.Enum
 {
     public enum SaleStatus
     {
