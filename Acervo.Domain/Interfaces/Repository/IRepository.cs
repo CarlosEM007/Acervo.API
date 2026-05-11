@@ -1,6 +1,6 @@
 ﻿using Acervo.Domain.Common;
 
-namespace Acervo.Domain.Interfaces
+namespace Acervo.Domain.Interfaces.Repository
 {
     public interface IRepository<T>
     {

@@ -1,4 +1,4 @@
-﻿using Acervo.Domain.Interfaces;
+﻿using Acervo.Domain.Interfaces.Repository;
 using Acervo.Infrastructure.Data;
 using Acervo.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

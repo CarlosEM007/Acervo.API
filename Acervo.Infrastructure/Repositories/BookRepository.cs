@@ -1,6 +1,6 @@
 ﻿using Acervo.Domain.Common;
 using Acervo.Domain.Entities;
-using Acervo.Domain.Interfaces;
+using Acervo.Domain.Interfaces.Repository;
 using Acervo.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
