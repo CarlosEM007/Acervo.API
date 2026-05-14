@@ -1,0 +1,55 @@
+﻿@page "/"
+@page "/login"
+
+<div class="login-wrapper">
+
+    <div class="login-image-panel">
+        <img src="images/login-bg.jpg" alt="Background" class="login-bg-image" />
+    </div>
+
+    <div class="login-form-panel">
+        <div class="login-form-content">
+
+            <h1 class="login-title">Bem-vindo</h1>
+
+            <div class="login-fields">
+                <div class="login-input-group">
+                    <input type="text"
+                           class="login-input"
+                           placeholder="Usuário"
+                           @bind="Username"
+                           @bind:event="oninput"
+                           @onkeydown="HandleKeyDown" />
+                </div>
+
+                <div class="login-input-group">
+                    <input type="password"
+                           class="login-input"
+                           placeholder="Senha"
+                           @bind="Password"
+                           @bind:event="oninput"
+                           @onkeydown="HandleKeyDown" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(ErrorMessage))
+                {
+                    <p class="login-error">@ErrorMessage</p>
+                }
+            </div>
+
+            <button class="login-button" @onclick="HandleLogin" disabled="@IsLoading">
+                @if (IsLoading)
+                {
+                    <span class="login-spinner"></span>
+                }
+                else
+                {
+                    <span>Acessar</span>
+                }
+            </button>
+
+            <p class="login-footer">© Spark</p>
+        </div>
+    </div>
+
+</div>
