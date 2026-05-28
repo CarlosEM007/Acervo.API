@@ -1,0 +1,11 @@
+﻿@page "/"
+@layout LoginLayout
+
+@using Acervo.Web.Components.Layout
+@using Acervo.Web.Components.Shared
+
+<PageTitle>Login</PageTitle>
+
+<AppInput Label="Usuário" Placeholder="Digite seu usuário" @bind-Value="Usuario" />
+<AppInput Label="Senha" Type="password"  Placeholder="Digite seu senha" @bind-Value="Senha" />
+

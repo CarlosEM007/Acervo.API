@@ -1,0 +1,119 @@
+﻿/* ── Variáveis ──────────────────────────────────────────────────── */
+:root {
+    --input-radius: 8px;
+    --input-border: #d1d5db;
+    --input-border-focus: #6366f1;
+    --input-border-error: #ef4444;
+    --input-bg: #ffffff;
+    --input-bg-disabled: #f3f4f6;
+    --input-text: #111827;
+    --input-placeholder: #9ca3af;
+    --input-label: #374151;
+    --input-helper: #6b7280;
+    --input-error-text: #ef4444;
+    --input-shadow-focus: 0 0 0 3px rgba(99, 102, 241, 0.18);
+    --input-shadow-error: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    --input-transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    --input-height: 42px;
+    --input-font-size: 0.9375rem;
+    --input-padding-x: 0.875rem;
+}
+
+/* ── Wrapper ────────────────────────────────────────────────────── */
+.input-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+/* ── Label ──────────────────────────────────────────────────────── */
+.input-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--input-label);
+    line-height: 1.4;
+    user-select: none;
+}
+
+/* ── Container do input ─────────────────────────────────────────── */
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--input-height);
+    padding: 0 var(--input-padding-x);
+    background: var(--input-bg);
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--input-radius);
+    transition: var(--input-transition);
+    box-sizing: border-box;
+}
+
+    .input-container:focus-within {
+        border-color: var(--input-border-focus);
+        box-shadow: var(--input-shadow-focus);
+        outline: none;
+    }
+
+    .input-container.has-error {
+        border-color: var(--input-border-error);
+    }
+
+        .input-container.has-error:focus-within {
+            box-shadow: var(--input-shadow-error);
+        }
+
+    .input-container.disabled {
+        background: var(--input-bg-disabled);
+        cursor: not-allowed;
+        opacity: 0.65;
+    }
+
+/* ── Campo input ────────────────────────────────────────────────── */
+.input-field {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: var(--input-font-size);
+    color: var(--input-text);
+    font-family: inherit;
+    padding: 0;
+    min-width: 0;
+}
+
+    .input-field::placeholder {
+        color: var(--input-placeholder);
+    }
+
+    .input-field:disabled {
+        cursor: not-allowed;
+    }
+
+/* ── Ícones ─────────────────────────────────────────────────────── */
+.input-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--input-placeholder);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ── Textos auxiliares ──────────────────────────────────────────── */
+.input-helper,
+.input-error {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding-left: 2px;
+}
+
+.input-helper {
+    color: var(--input-helper);
+}
+
+.input-error {
+    color: var(--input-error-text);
+}
