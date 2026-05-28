@@ -1,0 +1,215 @@
+﻿/* ── Variáveis (herdadas / sobrescrevem o AppInput se quiser unificar) ── */
+:root {
+    --btn-radius: 8px;
+    --btn-font-family: inherit;
+    --btn-font-weight: 500;
+    --btn-transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+    /* Tamanhos */
+    --btn-h-sm: 32px;
+    --btn-h-md: 42px;
+    --btn-h-lg: 52px;
+    --btn-px-sm: 0.75rem;
+    --btn-px-md: 1.125rem;
+    --btn-px-lg: 1.5rem;
+    --btn-font-sm: 0.8125rem;
+    --btn-font-md: 0.9375rem;
+    --btn-font-lg: 1rem;
+    /* Cores – primary */
+    --btn-primary-bg: #6366f1;
+    --btn-primary-bg-hover: #4f46e5;
+    --btn-primary-bg-active: #4338ca;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    /* Cores – secondary */
+    --btn-secondary-bg: #f3f4f6;
+    --btn-secondary-bg-hover: #e5e7eb;
+    --btn-secondary-bg-active: #d1d5db;
+    --btn-secondary-text: #111827;
+    --btn-secondary-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+    /* Cores – outline */
+    --btn-outline-border: #d1d5db;
+    --btn-outline-border-hover: #6366f1;
+    --btn-outline-text: #374151;
+    --btn-outline-text-hover: #6366f1;
+    --btn-outline-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+    /* Cores – ghost */
+    --btn-ghost-bg-hover: rgba(99, 102, 241, 0.08);
+    --btn-ghost-text: #6366f1;
+    /* Cores – danger */
+    --btn-danger-bg: #ef4444;
+    --btn-danger-bg-hover: #dc2626;
+    --btn-danger-bg-active: #b91c1c;
+    --btn-danger-text: #ffffff;
+    --btn-danger-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
+.app-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1.5px solid transparent;
+    border-radius: var(--btn-radius);
+    font-family: var(--btn-font-family);
+    font-weight: var(--btn-font-weight);
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: var(--btn-transition);
+    box-sizing: border-box;
+    line-height: 1;
+    user-select: none;
+}
+
+    .app-btn:focus-visible {
+        outline: none;
+    }
+
+    .app-btn:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+
+    .app-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+/* ── Tamanhos ───────────────────────────────────────────────────── */
+.app-btn--sm {
+    height: var(--btn-h-sm);
+    padding: 0 var(--btn-px-sm);
+    font-size: var(--btn-font-sm);
+}
+
+.app-btn--md {
+    height: var(--btn-h-md);
+    padding: 0 var(--btn-px-md);
+    font-size: var(--btn-font-md);
+}
+
+.app-btn--lg {
+    height: var(--btn-h-lg);
+    padding: 0 var(--btn-px-lg);
+    font-size: var(--btn-font-lg);
+}
+
+/* ── Full width ─────────────────────────────────────────────────── */
+.app-btn--full {
+    width: 100%;
+}
+
+/* ── Variante: primary ──────────────────────────────────────────── */
+.app-btn--primary {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+
+    .app-btn--primary:hover:not(:disabled) {
+        background: var(--btn-primary-bg-hover);
+    }
+
+    .app-btn--primary:active:not(:disabled) {
+        background: var(--btn-primary-bg-active);
+    }
+
+    .app-btn--primary:focus-visible {
+        box-shadow: var(--btn-primary-shadow);
+    }
+
+/* ── Variante: secondary ────────────────────────────────────────── */
+.app-btn--secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+}
+
+    .app-btn--secondary:hover:not(:disabled) {
+        background: var(--btn-secondary-bg-hover);
+    }
+
+    .app-btn--secondary:active:not(:disabled) {
+        background: var(--btn-secondary-bg-active);
+    }
+
+    .app-btn--secondary:focus-visible {
+        box-shadow: var(--btn-secondary-shadow);
+    }
+
+/* ── Variante: outline ──────────────────────────────────────────── */
+.app-btn--outline {
+    background: transparent;
+    border-color: var(--btn-outline-border);
+    color: var(--btn-outline-text);
+}
+
+    .app-btn--outline:hover:not(:disabled) {
+        border-color: var(--btn-outline-border-hover);
+        color: var(--btn-outline-text-hover);
+    }
+
+    .app-btn--outline:focus-visible {
+        box-shadow: var(--btn-outline-shadow);
+    }
+
+/* ── Variante: ghost ────────────────────────────────────────────── */
+.app-btn--ghost {
+    background: transparent;
+    color: var(--btn-ghost-text);
+}
+
+    .app-btn--ghost:hover:not(:disabled) {
+        background: var(--btn-ghost-bg-hover);
+    }
+
+    .app-btn--ghost:focus-visible {
+        box-shadow: var(--btn-primary-shadow);
+    }
+
+/* ── Variante: danger ───────────────────────────────────────────── */
+.app-btn--danger {
+    background: var(--btn-danger-bg);
+    color: var(--btn-danger-text);
+}
+
+    .app-btn--danger:hover:not(:disabled) {
+        background: var(--btn-danger-bg-hover);
+    }
+
+    .app-btn--danger:active:not(:disabled) {
+        background: var(--btn-danger-bg-active);
+    }
+
+    .app-btn--danger:focus-visible {
+        box-shadow: var(--btn-danger-shadow);
+    }
+
+/* ── Ícones ─────────────────────────────────────────────────────── */
+.app-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* ── Loading ────────────────────────────────────────────────────── */
+.app-btn--loading {
+    pointer-events: none;
+}
+
+.app-btn__spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: btn-spin 0.65s linear infinite;
+}
+
+@keyframes btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
