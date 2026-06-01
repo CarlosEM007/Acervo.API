@@ -1,12 +1,53 @@
 ﻿@page "/"
 @layout LoginLayout
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 @using Acervo.Web.Components.Layout
 @using Acervo.Web.Components.Shared
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Login — Acervo</PageTitle>
 
-<AppInput Label="Usuário" Placeholder="Digite seu usuário" @bind-Value="Usuario" />
-<AppInput Label="Senha" Type="password"  Placeholder="Digite seu senha" @bind-Value="Senha" />
-<AppButton OnClick="" Size="lg" Type="submit" Width="240px">Entrar</AppButton>
+<div class="login-page">
 
+    <div class="login-cover">
+        <div class="login-cover__overlay"></div>
+    </div>
+
+    <div class="login-panel">
+
+        <header class="login-panel__header">
+            <span class="login-panel__logo">Acervo</span>
+        </header>
+
+        <main class="login-panel__body">
+            <h1 class="login-panel__title">Bem-vindo</h1>
+            <p class="login-panel__subtitle">Faça login para continuar</p>
+
+            <div class="login-panel__form">
+                <AppInput Label="Usuário"
+                          Placeholder="Digite seu usuário"
+                          Width="100%"
+                          @bind-Value="Usuario" />
+
+                <AppInput Label="Senha"
+                          Type="password"
+                          Placeholder="Digite sua senha"
+                          Width="100%"
+                          @bind-Value="Senha" />
+
+                <AppButton OnClickCallback="Acessar"
+                           Type="button"
+                           Size="lg"
+                           FullWidth="true">
+                    Entrar
+                </AppButton>
+            </div>
+        </main>
+
+        <footer class="login-panel__footer">
+            <span>@@acervo</span>
+        </footer>
+
+    </div>
+</div>

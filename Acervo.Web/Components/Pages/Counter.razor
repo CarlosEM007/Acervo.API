@@ -1,5 +1,6 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 <PageTitle>Counter</PageTitle>
 
@@ -15,5 +16,6 @@
     private void IncrementCount()
     {
         currentCount++;
+        Navigation.NavigateTo("/Home");
     }
 }

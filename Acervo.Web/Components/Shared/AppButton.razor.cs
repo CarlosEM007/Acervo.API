@@ -41,7 +41,7 @@ namespace Acervo.Web.Components.Shared
         [Parameter] public string? LoadingText { get; set; }
 
         // ── Callback ──────────────────────────────────────────────────
-        [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+        [Parameter] public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
 
         // ── Estilo computado ──────────────────────────────────────────
         protected string ButtonStyle
@@ -59,8 +59,8 @@ namespace Acervo.Web.Components.Shared
         protected async Task HandleClick(MouseEventArgs e)
         {
             if (Disabled || Loading) return;
-            if (OnClick.HasDelegate)
-                await OnClick.InvokeAsync(e);
+            if (OnClickCallback.HasDelegate)
+                await OnClickCallback.InvokeAsync(e);
         }
     }
 }
