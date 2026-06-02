@@ -14,7 +14,7 @@ namespace Acervo.Web.Components.Pages
 
         private void Registrar(MouseEventArgs e)
         {
-            Navigation.NavigateTo("/Registro");
+            Navigation.NavigateTo("/registrar");
         }
     }
 }
