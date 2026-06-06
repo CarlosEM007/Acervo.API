@@ -15,8 +15,14 @@ namespace Acervo.Web.Service
             _session = session;
         }
 
-        public async Task<bool> LoginUser(LoginDto login)
+        public async Task<bool> LoginUser(string email, string password)
         {
+            var login = new LoginDto()
+            {
+                Email = email,
+                PasswordHash = password
+            };
+            
             var response = await _httpClient.PostAsJsonAsync(AuthEndpoints.Login(), login);
 
             if(!response.IsSuccessStatusCode)
