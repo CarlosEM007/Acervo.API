@@ -1,4 +1,5 @@
 using Acervo.Web.Components;
+using Acervo.Web.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
+
+builder.Services.AddSingleton<SessionService>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
