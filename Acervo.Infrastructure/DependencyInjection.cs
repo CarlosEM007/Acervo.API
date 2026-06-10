@@ -24,6 +24,7 @@ namespace Acervo.Infrastructure
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
