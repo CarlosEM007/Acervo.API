@@ -20,10 +20,10 @@ namespace Acervo.Application.UseCases.Auth
             var usuario = await _usuarioRepo.ObterPorEmailAsync(dto.Email)
                 ?? throw new UnauthorizedAccessException("Credenciais inválidas.");
 
-            if (!BCrypt.Net.BCrypt.Verify(dto.PasswordHash, usuario.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(dto.PasswordHash, usuario.Value.PasswordHash))
                 throw new UnauthorizedAccessException("Credenciais inválidas.");
 
-            var token = _tokenService.GerarToken(usuario);
+            var token = _tokenService.GerarToken(usuario.Value);
             return new TokenDTO(token, DateTime.UtcNow.AddHours(8));
         }
     }

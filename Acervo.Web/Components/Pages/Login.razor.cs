@@ -1,20 +1,15 @@
 ﻿using Acervo.Web.Service;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System.Runtime.CompilerServices;
 
 namespace Acervo.Web.Components.Pages
 {
     public partial class Login
     {
-        private readonly UserService _service;
+        [Inject] private UserService _service { get; set; } = default!;
 
-        private string Usuario { get; set; }
-        private string Senha { get; set; }
-
-        public Login(UserService service)
-        {
-            _service = service;
-        }
+        private string? Usuario { get; set; }
+        private string? Senha { get; set; }
 
         private async Task Acessar()
         {
