@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Favorites
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public long UserId { get; private set; }
         public User User { get; private set; }
         public DateTime CreatedAt { get; }

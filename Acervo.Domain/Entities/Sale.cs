@@ -5,7 +5,7 @@ namespace Acervo.Domain.Entities
 {
     public class Sale
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public long UserId { get; private set; }
         public User User { get; private set; }
         public long SellerId { get; private set; }

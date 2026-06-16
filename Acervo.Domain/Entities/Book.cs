@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Book
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
         public int PagesNumber { get; private set; }

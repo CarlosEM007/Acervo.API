@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Publisher
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public string Name { get; private set; }
         public string Country { get; private set; }
         public string Website { get; private set; }

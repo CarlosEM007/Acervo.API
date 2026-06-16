@@ -5,15 +5,11 @@ namespace Acervo.Domain.Entities
 {
     public class User
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string PasswordHash { get; private set; }
         public DateTime CreatedAt { get; }
-
-        public Favorites Favorites { get; private set; }
-        public Cart Cart { get; private set; }
-        public Library Library { get; private set; }
         public UserRole Role { get; private set; }
 
         protected User() { }

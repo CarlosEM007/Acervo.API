@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Author
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public string Name { get; private set; }
         public string Biography { get; private set; }
         public DateTime? BirthDate { get; private set; }
