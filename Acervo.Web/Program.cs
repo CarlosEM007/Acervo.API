@@ -1,12 +1,20 @@
 using Acervo.Web.Components;
+using Acervo.Web.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddSingleton<SessionService>();
+
+builder.Services.AddHttpClient<UserService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7001/api/");
+});
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

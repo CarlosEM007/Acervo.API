@@ -1,124 +1,46 @@
 ﻿using Acervo.Application.Service;
-using Acervo.Domain.Common;
 using Acervo.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Acervo.API.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class BookController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class BookController : ControllerBase
+    private readonly BookService _service;
+    public BookController(BookService service) => _service = service;
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(long id)
     {
-        private readonly BookService _service;
+        var result = await _service.GetById(id);
+        return result.Succeeded ? Ok(result.Value) : NotFound(result.Error);
+    }
 
-        public BookController(BookService service)
-        {
-            _service = service;
-        }
+    [HttpGet]
+    public async Task<IActionResult> GetAllBook()
+    {
+        var result = await _service.GetAllBook();
+        return result.Succeeded ? Ok(result.Value) : NotFound(result.Error);
+    }
 
-        public async Task<IActionResult> GetById(long Id)
-        {
-            try
-            {
-                Result<Book> Result = await _service.GetById(Id);
+    [HttpPost]
+    public async Task<IActionResult> Insert([FromBody] Book entity)
+    {
+        var result = await _service.Insert(entity);
+        return result.Succeeded ? Ok() : BadRequest(result.Error);
+    }
 
-                if (Result.Succeeded)
-                {
-                    return Ok(Result.Value);
-                }
-                else
-                {
-                    return NotFound(Result.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] Book entity)
+    {
+        var result = await _service.Update(entity);
+        return result.Succeeded ? Ok() : BadRequest(result.Error);
+    }
 
-        public async Task<IActionResult> GetAllBook()
-        {
-            try
-            {
-                Result<List<Book>> Result = await _service.GetAllBook();
-
-                if (Result.Succeeded)
-                {
-                    return Ok(Result.Value);
-                }
-                else
-                {
-                    return NotFound(Result.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public IActionResult Delete(Book Entity)
-        {
-            try
-            {
-                Result Result = _service.Delete(Entity);
-
-                if (Result.Succeeded)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound(Result.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public async Task<IActionResult> Insert(Book Entity)
-        {
-            try
-            {
-                Result Result = await _service.Insert(Entity);
-
-                if (Result.Succeeded)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound(Result.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public async Task<IActionResult> Update(Book Entity)
-        {
-            try
-            {
-                Result Result = await _service.Update(Entity);
-
-                if (Result.Succeeded)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound(Result.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+    [HttpDelete]
+    public IActionResult Delete([FromBody] Book entity)
+    {
+        var result = _service.Delete(entity);
+        return result.Succeeded ? Ok() : NotFound(result.Error);
     }
 }

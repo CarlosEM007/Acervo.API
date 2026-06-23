@@ -1,55 +1,67 @@
 ﻿@page "/"
-@page "/login"
+@layout LoginLayout
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+@using Acervo.Web.Components.Layout
+@using Acervo.Web.Components.Shared
 
-<div class="login-wrapper">
+<PageTitle>Login — Acervo</PageTitle>
 
-    <div class="login-image-panel">
-        <img src="images/login-bg.jpg" alt="Background" class="login-bg-image" />
+<div class="login-page">
+
+    <!-- Lado esquerdo: imagem -->
+    <div class="login-cover">
+        <div class="login-cover__overlay"></div>
     </div>
 
-    <div class="login-form-panel">
-        <div class="login-form-content">
+    <!-- Lado direito: formulário -->
+    <div class="login-panel">
 
-            <h1 class="login-title">Bem-vindo</h1>
+        <header class="login-panel__header">
+            <span class="login-panel__logo">Acervo</span>
+        </header>
 
-            <div class="login-fields">
-                <div class="login-input-group">
-                    <input type="text"
-                           class="login-input"
-                           placeholder="Usuário"
-                           @bind="Username"
-                           @bind:event="oninput"
-                           @onkeydown="HandleKeyDown" />
+        <main class="login-panel__body">
+            <h1 class="login-panel__title">Bem-vindo</h1>
+            <p class="login-panel__subtitle"></p>
+
+            <div class="login-panel__form">
+                <AppInput Label="Usuário"
+                          Placeholder="Digite seu usuário"
+                          Width="100%"
+                          @bind-Value="Usuario" />
+
+                <AppInput Label="Senha"
+                          Type="password"
+                          Placeholder="Digite sua senha"
+                          Width="100%"
+                          @bind-Value="Senha" />
+
+                <div class="login-panel__actions">
+                    <AppButton OnClickCallback="Acessar"
+                               Type="button"
+                               Size="lg"
+                               Color="#16a34a"
+                               Width="160px"
+                               Height="52px">
+                        Entrar
+                    </AppButton>
+
+                    <AppButton OnClickCallback="Registrar"
+                               Type="button"
+                               Size="lg"
+                               Color="#2563eb"
+                               Width="160px"
+                               Height="52px">
+                        Registrar-se
+                    </AppButton>
                 </div>
-
-                <div class="login-input-group">
-                    <input type="password"
-                           class="login-input"
-                           placeholder="Senha"
-                           @bind="Password"
-                           @bind:event="oninput"
-                           @onkeydown="HandleKeyDown" />
-                </div>
-
-                @if (!string.IsNullOrEmpty(ErrorMessage))
-                {
-                    <p class="login-error">@ErrorMessage</p>
-                }
             </div>
+        </main>
 
-            <button class="login-button" @onclick="HandleLogin" disabled="@IsLoading">
-                @if (IsLoading)
-                {
-                    <span class="login-spinner"></span>
-                }
-                else
-                {
-                    <span>Acessar</span>
-                }
-            </button>
+        <footer class="login-panel__footer">
+            <span>@@acervo</span>
+        </footer>
 
-            <p class="login-footer">© Spark</p>
-        </div>
     </div>
-
 </div>

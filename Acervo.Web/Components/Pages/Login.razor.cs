@@ -1,51 +1,27 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Acervo.Web.Service;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace Acervo.Web.Pages
+namespace Acervo.Web.Components.Pages
 {
     public partial class Login
     {
-        [Inject] private NavigationManager Navigation { get; set; }
+        [Inject] private UserService _service { get; set; } = default!;
 
-        private string Username { get; set; } = string.Empty;
-        private string Password { get; set; } = string.Empty;
-        private string ErrorMessage { get; set; } = string.Empty;
-        private bool IsLoading { get; set; } = false;
+        private string? Usuario { get; set; }
+        private string? Senha { get; set; }
 
-        private async Task HandleLogin()
+        private async Task Acessar()
         {
-            ErrorMessage = string.Empty;
+            var ok = await _service.LoginUser(Usuario, Senha);
 
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
-            {
-                ErrorMessage = "Preencha o usuário e a senha.";
-                return;
-            }
-
-            IsLoading = true;
-
-            try
-            {
-                // TODO: substitua pela chamada real ao seu serviço de autenticação
-                await Task.Delay(800); // simulação de requisição
-
-                bool success = Username == "admin" && Password == "admin";
-
-                if (success)
-                    Navigation.NavigateTo("/dashboard");
-                else
-                    ErrorMessage = "Usuário ou senha inválidos.";
-            }
-            finally
-            {
-                IsLoading = false;
-            }
+            if(ok)
+                Navigation.NavigateTo("/Home");
         }
 
-        private async Task HandleKeyDown(KeyboardEventArgs e)
+        private void Registrar(MouseEventArgs e)
         {
-            if (e.Key == "Enter")
-                await HandleLogin();
+            Navigation.NavigateTo("/registrar");
         }
     }
 }

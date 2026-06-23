@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Seller
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Document { get; private set; } // CNPJ or CPF

@@ -14,17 +14,31 @@ namespace Acervo.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(p => p.Author)
-                .IsRequired()
-                .HasMaxLength(50);
-
             builder.Property(p => p.Description)
                 .IsRequired()
                 .HasMaxLength(200);
 
+            builder.Property(p => p.PagesNumber)
+                .IsRequired();
+
+            builder.Property(p => p.CoverImageUrl)
+                .HasMaxLength(500);
+
             builder.Property(p => p.Release)
                 .IsRequired()
                 .HasColumnType("timestamp without time zone");
+
+            builder.HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(p => p.CategoryId);
+
+            builder.HasOne(x => x.Author)
+                   .WithMany(x => x.Books)
+                   .HasForeignKey(x => x.AuthorId);
+
+            builder.HasOne(x => x.Publisher)
+                   .WithMany(x => x.Books)
+                   .HasForeignKey(x => x.PublisherId);
         }
     }
 }

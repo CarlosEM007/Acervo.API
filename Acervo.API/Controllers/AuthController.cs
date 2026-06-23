@@ -1,6 +1,6 @@
 ﻿using Acervo.Application.UseCases.Auth;
 using Microsoft.AspNetCore.Mvc;
-using static Acervo.Application.DTOs.LoginDTO;
+using Acervo.Application.DTOs;
 
 namespace Acervo.API.Controllers
 {

@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class CartItem
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public long CartId { get; private set; }
         public Cart Cart { get; private set; }
         public long BookId { get; private set; }

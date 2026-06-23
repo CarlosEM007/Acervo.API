@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Acervo.Domain\Acervo.Domain.csproj" />
     <ProjectReference Include="..\Acervo.Infrastructure\Acervo.Infrastructure.csproj" />
+    <ProjectReference Include="..\Acervo.Utils\Acervo.Utils.csproj" />
   </ItemGroup>
 
 </Project>

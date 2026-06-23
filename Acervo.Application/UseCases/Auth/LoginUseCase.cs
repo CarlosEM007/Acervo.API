@@ -1,7 +1,6 @@
 ﻿using Acervo.Domain.Interfaces.Repository;
 using Acervo.Domain.Interfaces.Services;
-using static Acervo.Application.DTOs.LoginDTO;
-using static Acervo.Application.DTOs.TokenDTO;
+using Acervo.Application.DTOs;
 
 namespace Acervo.Application.UseCases.Auth
 {
@@ -16,16 +15,16 @@ namespace Acervo.Application.UseCases.Auth
             _tokenService = tokenService;
         }
 
-        public async Task<TokenDto> ExecutarAsync(LoginDto dto)
+        public async Task<TokenDTO> ExecutarAsync(LoginDto dto)
         {
             var usuario = await _usuarioRepo.ObterPorEmailAsync(dto.Email)
                 ?? throw new UnauthorizedAccessException("Credenciais inválidas.");
 
-            if (!BCrypt.Net.BCrypt.Verify(dto.Senha, usuario.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(dto.PasswordHash, usuario.Value.PasswordHash))
                 throw new UnauthorizedAccessException("Credenciais inválidas.");
 
-            var token = _tokenService.GerarToken(usuario);
-            return new TokenDto(token, DateTime.UtcNow.AddHours(8));
+            var token = _tokenService.GerarToken(usuario.Value);
+            return new TokenDTO(token, DateTime.UtcNow.AddHours(8));
         }
     }
 }

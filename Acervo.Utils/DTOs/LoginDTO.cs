@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Acervo.Application.DTOs
 {
-    public class LoginDTO
+    public class LoginDto
     {
-        public record LoginDto(string Email, string Senha);
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
 
     }
 }

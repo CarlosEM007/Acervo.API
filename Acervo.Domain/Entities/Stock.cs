@@ -4,7 +4,7 @@ namespace Acervo.Domain.Entities
 {
     public class Stock
     {
-        public long Id { get; }
+        public long Id { get; private set; }
         public long SellerId { get; private set; }
         public Seller Seller { get; private set; }
         public DateTime UpdatedAt { get; private set; }
