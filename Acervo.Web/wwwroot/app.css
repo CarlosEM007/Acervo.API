@@ -5,6 +5,7 @@ html, body {
 
 a, .btn-link {
     color: inherit;
+    text-decoration: none;
 }
 
 .btn-primary {

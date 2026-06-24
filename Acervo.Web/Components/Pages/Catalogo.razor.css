@@ -35,7 +35,53 @@
 
 .catalogo-header__search {
   width: 100%;
-  max-width: 560px;
+  max-width: 580px;
+}
+
+/* ── Search bar ──────────────────────────────────────── */
+.catalogo-search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--c-ink-soft);
+  border: 1.5px solid var(--c-ink-muted);
+  border-radius: var(--radius-full);
+  padding: var(--sp-3) var(--sp-6);
+  transition: border-color var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
+}
+
+.catalogo-search-bar:focus-within {
+  border-color: var(--c-gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+}
+
+.catalogo-search-bar__icon {
+  font-size: var(--text-xl);
+  color: var(--c-text-muted);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.catalogo-search-bar__input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: var(--sp-1) 0;
+  min-width: 0;
+}
+
+.catalogo-search-bar__input::placeholder {
+  color: var(--c-text-muted);
+}
+
+.catalogo-search-bar__input::-webkit-search-cancel-button {
+  filter: invert(0.5);
+  cursor: pointer;
 }
 
 /* ── Body com sidebar + resultados ───────────────────── */
@@ -129,8 +175,8 @@
 }
 
 .filtros__price-range {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--sp-3);
 }
 

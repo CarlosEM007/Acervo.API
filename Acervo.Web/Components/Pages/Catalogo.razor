@@ -13,10 +13,14 @@
         <p class="catalogo-header__subtitle">@TotalBooks resultados encontrados</p>
 
         <div class="catalogo-header__search">
-            <AppInput Placeholder="Buscar livros ou palavras-chave…"
-                      Width="100%"
-                      @bind-Value="SearchQuery"
-                      @bind-Value:after="ApplyFilters" />
+            <div class="catalogo-search-bar">
+                <span class="catalogo-search-bar__icon">🔍</span>
+                <input type="search"
+                       class="catalogo-search-bar__input"
+                       placeholder="Buscar livros, autores, categorias…"
+                       value="@SearchQuery"
+                       @oninput="@(e => { SearchQuery = e.Value?.ToString() ?? string.Empty; ApplyFilters(); })" />
+            </div>
         </div>
     </div>
 
