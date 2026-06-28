@@ -19,6 +19,7 @@ namespace Acervo.Infrastructure.Repositories
         public Result Delete(Book Entity)
         {
             _context.Books.Remove(Entity);
+            _context.SaveChanges();
 
             return Result.Success();
         }
@@ -50,6 +51,7 @@ namespace Acervo.Infrastructure.Repositories
         public async Task<Result> Insert(Book Entity)
         {
             await _context.Books.AddAsync(Entity);
+            await _context.SaveChangesAsync();
 
             return Result.Success();
         }

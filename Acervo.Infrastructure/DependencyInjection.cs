@@ -24,6 +24,9 @@ namespace Acervo.Infrastructure
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IPublisherRepository, PublisherRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;

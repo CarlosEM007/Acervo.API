@@ -13,6 +13,9 @@ namespace Acervo.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<BookService>();
+            services.AddScoped<AuthorService>();
+            services.AddScoped<PublisherService>();
+            services.AddScoped<CategoryService>();
 
             return services;
         }
