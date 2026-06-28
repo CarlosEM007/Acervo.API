@@ -1,6 +1,8 @@
 using Acervo.Application;
 using Acervo.Infrastructure;
+using Acervo.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -16,13 +18,13 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 var chave = builder.Configuration["Jwt:Chave"]
-    ?? throw new InvalidOperationException("Jwt:Chave não configurada no appsettings.");
+    ?? throw new InvalidOperationException("Jwt:Chave nï¿½o configurada no appsettings.");
 
 var issuer = builder.Configuration["Jwt:Issuer"]
-    ?? throw new InvalidOperationException("Jwt:Issuer não configurada no appsettings.");
+    ?? throw new InvalidOperationException("Jwt:Issuer nï¿½o configurada no appsettings.");
 
 var audience = builder.Configuration["Jwt:Audience"]
-    ?? throw new InvalidOperationException("Jwt:Audience não configurada no appsettings.");
+    ?? throw new InvalidOperationException("Jwt:Audience nï¿½o configurada no appsettings.");
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -43,6 +45,12 @@ builder.Services
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await DataSeeder.SeedAsync(db);
+}
 
 if (app.Environment.IsDevelopment())
 {

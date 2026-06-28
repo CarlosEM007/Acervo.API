@@ -24,6 +24,20 @@ namespace Acervo.Infrastructure
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IPublisherRepository, PublisherRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+            services.AddScoped<IFavoritesItemRepository, FavoritesItemRepository>();
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddScoped<ILibraryItemRepository, LibraryItemRepository>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
+            services.AddScoped<ISaleItemRepository, SaleItemRepository>();
+            services.AddScoped<ISellerRepository, SellerRepository>();
+            services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<IStockItemRepository, StockItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
