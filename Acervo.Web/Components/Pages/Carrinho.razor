@@ -15,7 +15,7 @@
     @if (!Items.Any())
     {
         <div class="cart-empty">
-            <span class="cart-empty__icon">🛒</span>
+            <span class="cart-empty__icon"><i class="fa-solid fa-cart-shopping"></i></span>
             <h2 class="cart-empty__title">Seu carrinho está vazio</h2>
             <p class="cart-empty__text">Adicione livros ao carrinho para continuar.</p>
             <AppButton Color="#c9a84c" TextColor="#0f172a" Size="lg" Width="220px" Height="52px"
@@ -39,7 +39,7 @@
                             }
                             else
                             {
-                                <div class="cart-item__cover-placeholder">📖</div>
+                                <div class="cart-item__cover-placeholder"><i class="fa-solid fa-book-open"></i></div>
                             }
                         </div>
 
@@ -64,7 +64,7 @@
                         </div>
 
                         <button class="cart-item__remove" @onclick="@(() => RemoveItem(item))" title="Remover">
-                            🗑️
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
                 }

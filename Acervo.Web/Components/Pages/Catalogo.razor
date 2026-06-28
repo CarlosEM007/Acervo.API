@@ -14,7 +14,7 @@
 
         <div class="catalogo-header__search">
             <div class="catalogo-search-bar">
-                <span class="catalogo-search-bar__icon">🔍</span>
+                <span class="catalogo-search-bar__icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input type="search"
                        class="catalogo-search-bar__input"
                        placeholder="Buscar livros, autores, categorias…"
@@ -83,7 +83,7 @@
             <!-- Toolbar -->
             <div class="catalogo-toolbar">
                 <button class="catalogo-toolbar__filter-btn" @onclick="@(() => FiltersOpen = !FiltersOpen)">
-                    🔧 Filtros
+                    <i class="fa-solid fa-sliders"></i> Filtros
                 </button>
 
                 <div class="catalogo-toolbar__sort">
@@ -98,8 +98,8 @@
                 </div>
 
                 <div class="catalogo-toolbar__view">
-                    <button class="@(ViewMode == "grid" ? "active" : "")" @onclick="@(() => ViewMode = "grid")" title="Grade">⊞</button>
-                    <button class="@(ViewMode == "list" ? "active" : "")" @onclick="@(() => ViewMode = "list")" title="Lista">≡</button>
+                    <button class="@(ViewMode == "grid" ? "active" : "")" @onclick="@(() => ViewMode = "grid")" title="Grade"><i class="fa-solid fa-grip"></i></button>
+                    <button class="@(ViewMode == "list" ? "active" : "")" @onclick="@(() => ViewMode = "list")" title="Lista"><i class="fa-solid fa-list"></i></button>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
             else if (!FilteredBooks.Any())
             {
                 <div class="catalogo-empty">
-                    <span class="catalogo-empty__icon">📭</span>
+                    <span class="catalogo-empty__icon"><i class="fa-solid fa-inbox"></i></span>
                     <h3>Nenhum livro encontrado</h3>
                     <p>Tente ajustar seus filtros ou buscar por outro termo.</p>
                     <AppButton Variant="outline" OnClickCallback="ClearFilters">Limpar filtros</AppButton>
@@ -134,7 +134,7 @@
                                 }
                                 else
                                 {
-                                    <div class="book-card__cover-placeholder">📖</div>
+                                    <div class="book-card__cover-placeholder"><i class="fa-solid fa-book-open"></i></div>
                                 }
                             </div>
                             <div class="book-card__body">

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Acervo.Web.Components.Pages
 {
@@ -13,14 +13,14 @@ namespace Acervo.Web.Components.Pages
 
         private List<CategoryVm> FeaturedCategories { get; set; } = new()
         {
-            new("Ficção Científica", "🚀", "ficcao-cientifica", 312),
-            new("Fantasia",          "🧙", "fantasia",          278),
-            new("Romance",           "💛", "romance",           445),
-            new("Suspense",          "🔍", "suspense",          189),
-            new("Biografia",         "📜", "biografia",         134),
-            new("Autoajuda",         "✨", "autoajuda",         221),
-            new("História",          "🏛️", "historia",          156),
-            new("Literatura",        "📚", "literatura",        398),
+            new("Ficção Científica", "fa-solid fa-rocket",       "ficcao-cientifica", 312),
+            new("Fantasia",          "fa-solid fa-hat-wizard",   "fantasia",          278),
+            new("Romance",           "fa-solid fa-heart",        "romance",           445),
+            new("Suspense",          "fa-solid fa-magnifying-glass", "suspense",      189),
+            new("Biografia",         "fa-solid fa-scroll",       "biografia",         134),
+            new("Autoajuda",         "fa-solid fa-star",         "autoajuda",         221),
+            new("História",          "fa-solid fa-landmark",     "historia",          156),
+            new("Literatura",        "fa-solid fa-book",         "literatura",        398),
         };
 
         private List<BookVm> NewReleases { get; set; } = new()

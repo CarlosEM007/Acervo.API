@@ -16,7 +16,7 @@
         @foreach (var cat in Categories)
         {
             <a class="cat-card" href="/catalogo?categoria=@cat.Slug">
-                <div class="cat-card__icon">@cat.Icon</div>
+                <div class="cat-card__icon"><i class="@cat.Icon"></i></div>
                 <div class="cat-card__body">
                     <h2 class="cat-card__name">@cat.Name</h2>
                     <p class="cat-card__desc">@cat.Description</p>

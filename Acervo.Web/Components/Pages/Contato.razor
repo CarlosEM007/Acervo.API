@@ -20,7 +20,7 @@
             @if (Sent)
             {
                 <div class="contact-success">
-                    <span>✅</span>
+                    <i class="fa-solid fa-circle-check"></i>
                     <h3>Mensagem enviada!</h3>
                     <p>Responderemos em até 2 dias úteis.</p>
                     <AppButton Variant="outline" OnClickCallback="@(() => Sent = false)">
@@ -63,21 +63,21 @@
 
             <div class="contact-info__items">
                 <div class="contact-info__item">
-                    <span class="contact-info__icon">📧</span>
+                    <span class="contact-info__icon"><i class="fa-solid fa-envelope"></i></span>
                     <div>
                         <p class="contact-info__label">E-mail</p>
                         <p class="contact-info__value">suporte@acervo.com.br</p>
                     </div>
                 </div>
                 <div class="contact-info__item">
-                    <span class="contact-info__icon">💬</span>
+                    <span class="contact-info__icon"><i class="fa-solid fa-comment"></i></span>
                     <div>
                         <p class="contact-info__label">Chat online</p>
                         <p class="contact-info__value">Seg–Sex, 9h–18h</p>
                     </div>
                 </div>
                 <div class="contact-info__item">
-                    <span class="contact-info__icon">⏱️</span>
+                    <span class="contact-info__icon"><i class="fa-solid fa-clock"></i></span>
                     <div>
                         <p class="contact-info__label">Tempo de resposta</p>
                         <p class="contact-info__value">Até 2 dias úteis</p>

@@ -20,11 +20,11 @@ namespace Acervo.Web.Components.Pages
 
         private List<PillarItem> Pillars { get; } = new()
         {
-            new("📖", "Missão",
+            new("fa-solid fa-book-open", "Missão",
                 "Democratizar o acesso à leitura, oferecendo um acervo vasto e acessível para leitores de todos os perfis."),
-            new("🌟", "Visão",
+            new("fa-solid fa-star", "Visão",
                 "Ser a principal plataforma de livros digitais da América Latina, reconhecida pela qualidade e curadoria."),
-            new("❤️", "Valores",
+            new("fa-solid fa-heart", "Valores",
                 "Paixão por livros, respeito ao leitor, diversidade de vozes e compromisso com a cultura literária."),
         };
 
