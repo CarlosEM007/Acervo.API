@@ -16,7 +16,7 @@
 else if (Book is null)
 {
     <div class="detail-not-found">
-        <span>😕</span>
+        <i class="fa-solid fa-face-frown-open"></i>
         <h2>Livro não encontrado</h2>
         <p>O livro que você procura não está disponível.</p>
         <AppButton Variant="outline" OnClickCallback="@(() => Navigation.NavigateTo("/catalogo"))">
@@ -49,18 +49,25 @@ else
                     }
                     else
                     {
-                        <div class="detail-cover__placeholder">📖</div>
+                        <div class="detail-cover__placeholder"><i class="fa-solid fa-book-open"></i></div>
                     }
                 </div>
 
                 <div class="detail-cover-actions">
                     <AppButton Color="#16a34a" TextColor="#fff" Size="lg" FullWidth="true"
                                Height="52px" OnClickCallback="AddToCart">
-                        🛒 Comprar
+                        <i class="fa-solid fa-cart-shopping"></i> Comprar
                     </AppButton>
                     <AppButton Variant="outline" Size="lg" FullWidth="true" Height="52px"
                                OnClickCallback="ToggleFavorite">
-                        @(IsFavorite ? "❤️ Nos favoritos" : "🤍 Adicionar aos favoritos")
+                        @if (IsFavorite)
+                        {
+                            <i class="fa-solid fa-heart"></i><span> Nos favoritos</span>
+                        }
+                        else
+                        {
+                            <i class="fa-regular fa-heart"></i><span> Adicionar aos favoritos</span>
+                        }
                     </AppButton>
                 </div>
             </div>
@@ -97,7 +104,7 @@ else
                 <!-- Plataforma -->
                 <div class="detail-platform">
                     <span class="detail-platform__label">Formato</span>
-                    <span class="detail-platform__value">📱 E-book Digital</span>
+                    <span class="detail-platform__value"><i class="fa-solid fa-mobile-screen"></i> E-book Digital</span>
                 </div>
 
                 <!-- Separador -->

@@ -37,9 +37,9 @@ namespace Acervo.Web.Components.Pages
 
         private List<TabItem> Tabs { get; } = new()
         {
-            new("perfil",    "👤", "Perfil"),
-            new("pedidos",   "📦", "Pedidos"),
-            new("biblioteca","📚", "Minha Biblioteca"),
+            new("perfil",     "fa-solid fa-user",     "Perfil"),
+            new("pedidos",    "fa-solid fa-box",      "Pedidos"),
+            new("biblioteca", "fa-solid fa-book",     "Minha Biblioteca"),
         };
 
         // ── Pedidos mock ───────────────────────────────────────────

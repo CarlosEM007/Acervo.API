@@ -24,7 +24,7 @@
             {
                 <button class="account-nav__link @(ActiveTab == tab.Key ? "active" : "")"
                         @onclick="@(() => ActiveTab = tab.Key)">
-                    <span>@tab.Icon</span>
+                    <i class="@tab.Icon"></i>
                     <span>@tab.Label</span>
                 </button>
             }
@@ -87,7 +87,7 @@
                 @if (!Orders.Any())
                 {
                     <div class="account-empty">
-                        <span>📦</span>
+                        <i class="fa-solid fa-box"></i>
                         <p>Você ainda não fez nenhum pedido.</p>
                         <AppButton Variant="outline" OnClickCallback="@(() => Navigation.NavigateTo("/catalogo"))">
                             Explorar catálogo
@@ -130,7 +130,7 @@
                 @if (!LibraryBooks.Any())
                 {
                     <div class="account-empty">
-                        <span>📚</span>
+                        <i class="fa-solid fa-book"></i>
                         <p>Sua biblioteca está vazia.</p>
                     </div>
                 }
@@ -141,7 +141,7 @@
                         {
                             <div class="library-item">
                                 <div class="library-item__cover">
-                                    <div class="book-card__cover-placeholder">📖</div>
+                                    <div class="book-card__cover-placeholder"><i class="fa-solid fa-book-open"></i></div>
                                 </div>
                                 <div class="library-item__info">
                                     <h4 class="library-item__title">@book.Title</h4>

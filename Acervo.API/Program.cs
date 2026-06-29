@@ -2,7 +2,6 @@ using Acervo.Application;
 using Acervo.Infrastructure;
 using Acervo.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 

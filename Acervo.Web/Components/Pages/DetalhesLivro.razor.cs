@@ -1,3 +1,4 @@
+using Acervo.Web.Service;
 using Microsoft.AspNetCore.Components;
 
 namespace Acervo.Web.Components.Pages
@@ -5,59 +6,104 @@ namespace Acervo.Web.Components.Pages
     public partial class DetalhesLivro
     {
         [Parameter] public long Id { get; set; }
-        [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+        [Inject] private NavigationManager Navigation    { get; set; } = default!;
+        [Inject] private BookService        BookSvc      { get; set; } = default!;
+        [Inject] private AuthorService      AuthorSvc    { get; set; } = default!;
+        [Inject] private CategoryService    CatSvc       { get; set; } = default!;
+        [Inject] private PublisherService   PublisherSvc { get; set; } = default!;
+        [Inject] private StockItemService   StockSvc     { get; set; } = default!;
 
         // ── Estado ─────────────────────────────────────────────────
-        private bool IsLoading { get; set; } = true;
-        private bool IsFavorite { get; set; } = false;
-        private bool DescExpanded { get; set; } = false;
+        private bool    IsLoading      { get; set; } = true;
+        private bool    IsFavorite     { get; set; } = false;
+        private bool    DescExpanded   { get; set; } = false;
         private string? FeedbackMessage { get; set; }
-        private bool FeedbackSuccess { get; set; }
+        private bool    FeedbackSuccess { get; set; }
 
-        // ── Modelo de view ─────────────────────────────────────────
         private record BookDetailVm(
-            long Id, string Title, string Description, int PagesNumber, DateTime Release,
-            string? CoverImageUrl, string CategoryName, string CategorySlug,
-            long AuthorId, string AuthorName, string PublisherName,
-            decimal Price, decimal? OriginalPrice);
+            long     Id,
+            string   Title,
+            string   Description,
+            int      PagesNumber,
+            DateTime Release,
+            string?  CoverImageUrl,
+            string   CategoryName,
+            string   CategorySlug,
+            long     AuthorId,
+            string   AuthorName,
+            string   PublisherName,
+            decimal  Price,
+            decimal? OriginalPrice);
 
         private BookDetailVm? Book { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
             IsLoading = true;
+            Book      = null;
             await LoadBook();
             IsLoading = false;
         }
 
         private async Task LoadBook()
         {
-            // Substituir pela chamada ao serviço real
-            await Task.Delay(300);
-
-            Book = Id switch
+            try
             {
-                1 => new(1, "Fundação",
-                    "Em Fundação, Isaac Asimov apresenta Hari Seldon, um matemático que usa a psico-história para prever o colapso do Império Galáctico e planeja uma enciclopédia para salvar o conhecimento humano. A série se desdobra em séculos de política, ciência e sobrevivência numa galáxia caótica. É uma das obras mais influentes da ficção científica, explorando como a humanidade pode planejar seu próprio destino em escala civilizacional.",
-                    376, new DateTime(1951, 6, 1), null,
-                    "Ficção Científica", "ficcao-cientifica",
-                    1, "Isaac Asimov", "Aleph", 39.90m, null),
+                var bookDto = await BookSvc.GetById(Id);
+                if (bookDto is null) return;
 
-                2 => new(2, "1984",
-                    "1984 é uma distopia sombria de George Orwell que retrata um futuro totalitário onde o Partido controla cada aspecto da vida humana. Winston Smith trabalha no Ministério da Verdade reescrevendo registros históricos e começa a questionar o sistema — uma decisão perigosa num mundo de vigilância constante e pensamento policiado.",
-                    328, new DateTime(1949, 6, 8), null,
-                    "Ficção", "ficcao",
-                    2, "George Orwell", "Companhia das Letras", 34.90m, 44.90m),
+                var authTask  = AuthorSvc.GetAll();
+                var catTask   = CatSvc.GetAll();
+                var pubTask   = PublisherSvc.GetAll();
+                var stockTask = StockSvc.GetAll();
 
-                _ => null
-            };
+                await Task.WhenAll(authTask, catTask, pubTask, stockTask);
+
+                var authorName    = authTask.Result
+                    .FirstOrDefault(a => a.Id == bookDto.AuthorId)?.Name ?? "—";
+                var category      = catTask.Result
+                    .FirstOrDefault(c => c.Id == bookDto.CategoryId);
+                var publisherName = pubTask.Result
+                    .FirstOrDefault(p => p.Id == bookDto.PublisherId)?.Name ?? "—";
+                var price         = stockTask.Result
+                    .Where(s => s.BookId == bookDto.Id)
+                    .Select(s => s.Price)
+                    .DefaultIfEmpty(0m)
+                    .Min();
+
+                // Slug simples: sem acentos/espaços
+                var slug = category?.Description
+                    .ToLowerInvariant()
+                    .Replace(" ", "-")
+                    .Replace("ã", "a").Replace("á", "a").Replace("â", "a")
+                    .Replace("ç", "c").Replace("é", "e").Replace("ê", "e")
+                    .Replace("í", "i").Replace("ó", "o").Replace("ô", "o")
+                    .Replace("ú", "u") ?? "geral";
+
+                Book = new(
+                    bookDto.Id,
+                    bookDto.Title,
+                    bookDto.Description,
+                    bookDto.PagesNumber,
+                    bookDto.Release,
+                    string.IsNullOrEmpty(bookDto.CoverImageUrl) ? null : bookDto.CoverImageUrl,
+                    category?.Description ?? "—",
+                    slug,
+                    bookDto.AuthorId,
+                    authorName,
+                    publisherName,
+                    price,
+                    null);
+            }
+            catch { /* API offline — Book fica null → template mostra "não encontrado" */ }
         }
 
         private async Task AddToCart()
         {
             if (Book is null) return;
 
-            // Substituir pela chamada ao serviço de carrinho
+            // TODO: integrar com CartService quando houver contexto de usuário
             await Task.Delay(200);
 
             FeedbackMessage = $"«{Book.Title}» adicionado ao carrinho!";
@@ -73,10 +119,10 @@ namespace Acervo.Web.Components.Pages
         {
             if (Book is null) return;
 
-            // Substituir pela chamada ao serviço de favoritos
+            // TODO: integrar com FavoritesService quando houver contexto de usuário
             await Task.Delay(150);
 
-            IsFavorite = !IsFavorite;
+            IsFavorite      = !IsFavorite;
             FeedbackMessage = IsFavorite
                 ? $"«{Book.Title}» adicionado aos favoritos!"
                 : $"«{Book.Title}» removido dos favoritos.";

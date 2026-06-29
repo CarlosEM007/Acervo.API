@@ -34,7 +34,7 @@
     @if (!IsLoading && !Results.Any() && !string.IsNullOrWhiteSpace(Query))
     {
         <div class="search-empty">
-            <span>🔍</span>
+            <i class="fa-solid fa-magnifying-glass"></i>
             <h2>Nenhum resultado encontrado</h2>
             <p>Tente outros termos ou explore o catálogo.</p>
             <AppButton Variant="outline" OnClickCallback="@(() => Navigation.NavigateTo("/catalogo"))">
@@ -49,7 +49,7 @@
             {
                 <div class="book-card" @onclick="@(() => Navigation.NavigateTo($"/livro/{book.Id}"))">
                     <div class="book-card__cover">
-                        <div class="book-card__cover-placeholder">📖</div>
+                        <div class="book-card__cover-placeholder"><i class="fa-solid fa-book-open"></i></div>
                     </div>
                     <div class="book-card__body">
                         <span class="book-card__category">@book.CategoryName</span>
@@ -66,7 +66,7 @@
     else if (string.IsNullOrWhiteSpace(Query))
     {
         <div class="search-hint">
-            <span class="search-hint__icon">📚</span>
+            <span class="search-hint__icon"><i class="fa-solid fa-book-open-reader"></i></span>
             <p>Digite acima para buscar no acervo.</p>
         </div>
     }

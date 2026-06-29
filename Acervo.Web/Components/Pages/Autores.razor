@@ -28,10 +28,17 @@
         }
     </div>
 
-    @if (!FilteredAuthors.Any())
+    @if (IsLoading)
     {
         <div class="autores-empty">
-            <span>📚</span>
+            <div class="catalogo-loading__spinner"></div>
+            <p>Carregando autores…</p>
+        </div>
+    }
+    else if (!FilteredAuthors.Any())
+    {
+        <div class="autores-empty">
+            <i class="fa-solid fa-book"></i>
             <p>Nenhum autor encontrado.</p>
         </div>
     }

@@ -8,24 +8,24 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<SessionService>();
 
-builder.Services.AddHttpClient<UserService>(client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7001/api/");
-});
+var apiBase = new Uri("https://localhost:7001/api/");
+
+builder.Services.AddHttpClient<UserService>(c       => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<BookService>(c       => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<AuthorService>(c     => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<CategoryService>(c   => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<PublisherService>(c  => c.BaseAddress = apiBase);
+builder.Services.AddHttpClient<StockItemService>(c  => c.BaseAddress = apiBase);
 
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 

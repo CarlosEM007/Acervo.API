@@ -1,3 +1,4 @@
+using Acervo.Web.Service;
 using Microsoft.AspNetCore.Components;
 
 namespace Acervo.Web.Components.Pages
@@ -5,39 +6,56 @@ namespace Acervo.Web.Components.Pages
     public partial class Autores
     {
         [Inject] private NavigationManager Navigation { get; set; } = default!;
+        [Inject] private AuthorService      AuthorSvc { get; set; } = default!;
+        [Inject] private BookService        BookSvc   { get; set; } = default!;
 
         private record AuthorVm(long Id, string Name, string? Biography, int BookCount);
 
+        private bool  IsLoading    { get; set; } = true;
         private string SearchQuery { get; set; } = string.Empty;
-        private char? SelectedLetter { get; set; }
+        private char?  SelectedLetter { get; set; }
 
         private static readonly char[] Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-        private List<AuthorVm> AllAuthors { get; } = new()
+        private List<AuthorVm> AllAuthors      { get; set; } = [];
+        private List<AuthorVm> FilteredAuthors { get; set; } = [];
+
+        protected override async Task OnInitializedAsync()
         {
-            new(1,  "Isaac Asimov",           "Mestre da ficção científica, autor de Fundação e Eu, Robô.", 12),
-            new(2,  "George Orwell",           "Escritor britânico conhecido por 1984 e A Revolução dos Bichos.", 6),
-            new(3,  "Frank Herbert",           "Criador do universo épico de Duna.", 8),
-            new(4,  "J.R.R. Tolkien",          "Pai da fantasia moderna, criador da Terra Média.", 5),
-            new(5,  "Machado de Assis",        "Maior escritor brasileiro, fundador da Academia Brasileira de Letras.", 20),
-            new(6,  "Franz Kafka",             "Escritor tcheco de obras sombrias e metafóricas.", 7),
-            new(7,  "Gabriel García Márquez",  "Nobel de Literatura, pai do realismo mágico.", 10),
-            new(8,  "Margaret Atwood",         "Autora canadense de O Conto da Aia.", 14),
-            new(9,  "Clarice Lispector",       "Uma das mais importantes escritoras brasileiras do século XX.", 11),
-            new(10, "Dostoiévski",             "Mestre da psicologia humana na literatura russa.", 9),
-        };
+            try
+            {
+                var authTask  = AuthorSvc.GetAll();
+                var bookTask  = BookSvc.GetAll();
+                await Task.WhenAll(authTask, bookTask);
 
-        private List<AuthorVm> FilteredAuthors { get; set; } = new();
+                var bookCount = bookTask.Result
+                    .GroupBy(b => b.AuthorId)
+                    .ToDictionary(g => g.Key, g => g.Count());
 
-        protected override void OnInitialized() => FilterAuthors();
+                AllAuthors = authTask.Result
+                    .Select(a => new AuthorVm(
+                        a.Id,
+                        a.Name,
+                        a.Biography,
+                        bookCount.GetValueOrDefault(a.Id, 0)))
+                    .OrderBy(a => a.Name)
+                    .ToList();
+            }
+            catch { /* API offline */ }
+            finally
+            {
+                IsLoading = false;
+                FilterAuthors();
+            }
+        }
 
         private void FilterAuthors()
         {
             var q = SearchQuery.Trim().ToLowerInvariant();
             FilteredAuthors = AllAuthors
-                .Where(a => (string.IsNullOrEmpty(q) || a.Name.Contains(q, StringComparison.OrdinalIgnoreCase))
-                         && (SelectedLetter == null || char.ToUpperInvariant(a.Name[0]) == SelectedLetter))
-                .OrderBy(a => a.Name)
+                .Where(a =>
+                    (string.IsNullOrEmpty(q) || a.Name.Contains(q, StringComparison.OrdinalIgnoreCase)) &&
+                    (SelectedLetter == null  || char.ToUpperInvariant(a.Name[0]) == SelectedLetter))
                 .ToList();
         }
 

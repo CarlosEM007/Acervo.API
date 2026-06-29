@@ -1,6 +1,6 @@
-﻿using Acervo.Domain.Interfaces.Repository;
+﻿using Acervo.Application.DTOs;
+using Acervo.Domain.Interfaces.Repository;
 using Acervo.Domain.Interfaces.Services;
-using Acervo.Application.DTOs;
 
 namespace Acervo.Application.UseCases.Auth
 {

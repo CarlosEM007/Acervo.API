@@ -12,6 +12,7 @@ namespace Acervo.Infrastructure.Data
             await SeedCoreEntitiesAsync(context);
             await SeedClassicBooksAsync(context);
             await SeedNewGenresAsync(context);
+            await SeedCoverUrlsAsync(context);
         }
 
         // Authors, Categories, Publishers, Users, Sellers
@@ -268,6 +269,46 @@ namespace Acervo.Infrastructure.Data
                 new StockItem(stockSaraiva.Id, nomeRosa.Id,         18, 59.90m),
                 new StockItem(stockSaraiva.Id, dracula.Id,          22, 39.90m),
                 new StockItem(stockSaraiva.Id, frankenstein.Id,     28, 34.90m));
+            await context.SaveChangesAsync();
+        }
+        private static async Task SeedCoverUrlsAsync(AppDbContext context)
+        {
+            if (!await context.Books.AnyAsync(b => b.CoverImageUrl == ""))
+                return;
+
+            var coverMap = new Dictionary<string, string>
+            {
+                ["Dom Casmurro"]                         = "/capas/dom-casmurro.jpg",
+                ["Memórias Póstumas de Brás Cubas"]      = "/capas/memorias-postumas-de-bras-cubas.jpg",
+                ["A Paixão Segundo G.H."]                = "/capas/a-paixao-segundo-gh.jpg",
+                ["A Hora da Estrela"]                    = "/capas/a-hora-da-estrela.jpg",
+                ["Gabriela, Cravo e Canela"]             = "/capas/gabriela-cravo-e-canela.jpg",
+                ["Capitães da Areia"]                    = "/capas/capitaes-da-areia.jpg",
+                ["O Alquimista"]                         = "/capas/o-alquimista.jpg",
+                ["Ensaio sobre a Cegueira"]              = "/capas/ensaio-sobre-a-cegueira.jpg",
+                ["1984"]                                 = "/capas/1984.jpg",
+                ["A Revolução dos Bichos"]               = "/capas/a-revolucao-dos-bichos.jpg",
+                ["Admirável Mundo Novo"]                 = "/capas/admiravel-mundo-novo.jpg",
+                ["It — A Coisa"]                         = "/capas/it-a-coisa.jpg",
+                ["O Iluminado"]                          = "/capas/o-iluminado.jpg",
+                ["Misery"]                               = "/capas/misery.jpg",
+                ["Drácula"]                              = "/capas/dracula.jpg",
+                ["Frankenstein"]                         = "/capas/frankenstein.jpg",
+                ["Assassinato no Expresso do Oriente"]   = "/capas/assassinato-no-expresso-do-oriente.jpg",
+                ["E Não Sobrou Nenhum"]                  = "/capas/e-nao-sobrou-nenhum.jpg",
+                ["O Cão dos Baskervilles"]               = "/capas/o-cao-dos-baskervilles.jpg",
+                ["Um Estudo em Vermelho"]                = "/capas/um-estudo-em-vermelho.jpg",
+                ["O Nome da Rosa"]                       = "/capas/o-nome-da-rosa.jpg",
+            };
+
+            var books = await context.Books.Where(b => b.CoverImageUrl == "").ToListAsync();
+            foreach (var book in books)
+            {
+                if (coverMap.TryGetValue(book.Title, out var url))
+                    book.Update(book.Title, book.Description, book.Release, book.PagesNumber,
+                                book.CategoryId, book.AuthorId, book.PublisherId, url);
+            }
+
             await context.SaveChangesAsync();
         }
     }

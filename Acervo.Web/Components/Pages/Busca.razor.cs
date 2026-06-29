@@ -1,3 +1,4 @@
+using Acervo.Web.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -6,33 +7,54 @@ namespace Acervo.Web.Components.Pages
     public partial class Busca
     {
         [Inject] private NavigationManager Navigation { get; set; } = default!;
-
-        private string Query { get; set; } = string.Empty;
-        private bool IsLoading { get; set; } = false;
+        [Inject] private BookService        BookSvc   { get; set; } = default!;
+        [Inject] private AuthorService      AuthorSvc { get; set; } = default!;
+        [Inject] private CategoryService    CatSvc    { get; set; } = default!;
+        [Inject] private StockItemService   StockSvc  { get; set; } = default!;
 
         private record BookVm(long Id, string Title, string AuthorName, string CategoryName, decimal Price);
 
-        private List<BookVm> AllBooks { get; } = new()
-        {
-            new(1, "Fundação",              "Isaac Asimov",              "Ficção Científica", 39.90m),
-            new(2, "1984",                  "George Orwell",             "Ficção",            34.90m),
-            new(3, "Duna",                  "Frank Herbert",             "Ficção Científica", 49.90m),
-            new(4, "O Senhor dos Anéis",    "J.R.R. Tolkien",            "Fantasia",          89.90m),
-            new(5, "Dom Casmurro",          "Machado de Assis",          "Literatura",        24.90m),
-            new(6, "A Metamorfose",         "Franz Kafka",               "Literatura",        19.90m),
-            new(7, "Cem Anos de Solidão",   "Gabriel García Márquez",    "Romance",           44.90m),
-            new(8, "O Hobbit",              "J.R.R. Tolkien",            "Fantasia",          39.90m),
-            new(9, "O Conto da Aia",        "Margaret Atwood",           "Ficção Científica", 42.90m),
-        };
+        private string       Query    { get; set; } = string.Empty;
+        private bool         IsLoading { get; set; } = true;
 
-        private List<BookVm> Results { get; set; } = new();
+        private List<BookVm> AllBooks { get; set; } = [];
+        private List<BookVm> Results  { get; set; } = [];
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            // Ler query string antes de carregar os dados
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("q", out var q))
-            {
                 Query = q!;
+
+            try
+            {
+                var booksTask  = BookSvc.GetAll();
+                var authTask   = AuthorSvc.GetAll();
+                var catTask    = CatSvc.GetAll();
+                var stockTask  = StockSvc.GetAll();
+
+                await Task.WhenAll(booksTask, authTask, catTask, stockTask);
+
+                var authors    = authTask.Result.ToDictionary(a => a.Id, a => a.Name);
+                var categories = catTask.Result.ToDictionary(c => c.Id, c => c.Description);
+                var prices     = stockTask.Result
+                                    .GroupBy(s => s.BookId)
+                                    .ToDictionary(g => g.Key, g => g.Min(s => s.Price));
+
+                AllBooks = booksTask.Result
+                    .Select(b => new BookVm(
+                        b.Id,
+                        b.Title,
+                        authors.GetValueOrDefault(b.AuthorId, "—"),
+                        categories.GetValueOrDefault(b.CategoryId, "—"),
+                        prices.GetValueOrDefault(b.Id, 0m)))
+                    .ToList();
+            }
+            catch { /* API offline */ }
+            finally
+            {
+                IsLoading = false;
                 RunSearch();
             }
         }
@@ -48,8 +70,8 @@ namespace Acervo.Web.Components.Pages
             var term = Query.Trim().ToLowerInvariant();
             Results = AllBooks
                 .Where(b =>
-                    b.Title.Contains(term, StringComparison.OrdinalIgnoreCase) ||
-                    b.AuthorName.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    b.Title.Contains(term, StringComparison.OrdinalIgnoreCase)        ||
+                    b.AuthorName.Contains(term, StringComparison.OrdinalIgnoreCase)   ||
                     b.CategoryName.Contains(term, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }

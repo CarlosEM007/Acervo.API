@@ -1,3 +1,4 @@
+using Acervo.Application.DTOs;
 using Acervo.Application.Service;
 using Acervo.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -24,23 +25,30 @@ public class SaleItemController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Insert([FromBody] SaleItem entity)
+    public async Task<IActionResult> Insert([FromBody] CreateSaleItemDto dto)
     {
+        var entity = new SaleItem(dto.SaleId, dto.BookId, dto.Quantity, dto.UnitPrice);
         var result = await _service.Insert(entity);
         return result.Succeeded ? Ok() : BadRequest(result.Error);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] SaleItem entity)
+    public async Task<IActionResult> Update([FromBody] UpdateSaleItemDto dto)
     {
-        var result = await _service.Update(entity);
+        var found = await _service.GetById(dto.Id);
+        if (!found.Succeeded) return NotFound(found.Error);
+
+        var result = await _service.Update(found.Value);
         return result.Succeeded ? Ok() : BadRequest(result.Error);
     }
 
-    [HttpDelete]
-    public IActionResult Delete([FromBody] SaleItem entity)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(long id)
     {
-        var result = _service.Delete(entity);
+        var found = await _service.GetById(id);
+        if (!found.Succeeded) return NotFound(found.Error);
+
+        var result = _service.Delete(found.Value);
         return result.Succeeded ? Ok() : NotFound(result.Error);
     }
 }

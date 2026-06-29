@@ -8,14 +8,14 @@
 
 <div class="favs-page">
     <div class="favs-page__header">
-        <h1 class="favs-page__title">❤️ Favoritos</h1>
+        <h1 class="favs-page__title"><i class="fa-solid fa-heart"></i> Favoritos</h1>
         <span class="favs-page__count">@Items.Count @(Items.Count == 1 ? "livro" : "livros")</span>
     </div>
 
     @if (!Items.Any())
     {
         <div class="favs-empty">
-            <span class="favs-empty__icon">🤍</span>
+            <span class="favs-empty__icon"><i class="fa-regular fa-heart"></i></span>
             <h2 class="favs-empty__title">Nenhum favorito ainda</h2>
             <p class="favs-empty__text">Salve livros que você quer ler depois.</p>
             <AppButton Color="#c9a84c" TextColor="#0f172a" Size="lg" Width="220px"
@@ -37,11 +37,11 @@
                         }
                         else
                         {
-                            <div class="book-card__cover-placeholder">📖</div>
+                            <div class="book-card__cover-placeholder"><i class="fa-solid fa-book-open"></i></div>
                         }
                         <button class="favs-remove-btn" @onclick:stopPropagation="true"
                                 @onclick="@(() => RemoveFavorite(item))" title="Remover dos favoritos">
-                            ❤️
+                            <i class="fa-solid fa-heart"></i>
                         </button>
                     </div>
                     <div class="book-card__body">
@@ -53,7 +53,7 @@
                         </div>
                         <AppButton Color="#16a34a" TextColor="#fff" Size="sm" FullWidth="true"
                                    OnClickCallback="@(() => AddToCart(item))">
-                            🛒 Adicionar ao carrinho
+                            <i class="fa-solid fa-cart-shopping"></i> Adicionar ao carrinho
                         </AppButton>
                     </div>
                 </div>
