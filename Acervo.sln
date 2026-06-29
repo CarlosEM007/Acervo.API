@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acervo.Web", "Acervo.Web\Acervo.Web.csproj", "{5A5A01DC-1E86-4B7E-B3A8-CC9DBDB91B01}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acervo.API", "Acervo.API\Acervo.API.csproj", "{E65F3082-5486-4603-B60F-ECE9D1C6DEB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acervo.Application", "Acervo.Application\Acervo.Application.csproj", "{2FBC081D-887B-49D8-84C8-3583C00245A5}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A5A01DC-1E86-4B7E-B3A8-CC9DBDB91B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A5A01DC-1E86-4B7E-B3A8-CC9DBDB91B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A5A01DC-1E86-4B7E-B3A8-CC9DBDB91B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A5A01DC-1E86-4B7E-B3A8-CC9DBDB91B01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E65F3082-5486-4603-B60F-ECE9D1C6DEB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E65F3082-5486-4603-B60F-ECE9D1C6DEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E65F3082-5486-4603-B60F-ECE9D1C6DEB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
