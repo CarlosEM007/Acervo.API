@@ -17,8 +17,10 @@ namespace Acervo.Application.UseCases.Auth
 
         public async Task<TokenDTO> ExecutarAsync(LoginDto dto)
         {
-            var usuario = await _usuarioRepo.ObterPorEmailAsync(dto.Email)
-                ?? throw new UnauthorizedAccessException("Credenciais inválidas.");
+            var usuario = await _usuarioRepo.ObterPorEmailAsync(dto.Email);
+
+            if (!usuario.Succeeded || usuario.Value == null)
+                throw new UnauthorizedAccessException("Credenciais inválidas.");
 
             if (!BCrypt.Net.BCrypt.Verify(dto.PasswordHash, usuario.Value.PasswordHash))
                 throw new UnauthorizedAccessException("Credenciais inválidas.");

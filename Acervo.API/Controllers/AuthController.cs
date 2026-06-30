@@ -15,8 +15,15 @@ namespace Acervo.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var resultado = await _loginUseCase.ExecutarAsync(dto);
-            return Ok(resultado);
+            try
+            {
+                var resultado = await _loginUseCase.ExecutarAsync(dto);
+                return Ok(resultado);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
         }
     }
 }

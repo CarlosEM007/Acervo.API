@@ -1,4 +1,5 @@
 ﻿using Acervo.Application.Service;
+using Acervo.Application.UseCases.Auth;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Acervo.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<LoginUseCase>();
+
             services.AddScoped<BookService>();
             services.AddScoped<AuthorService>();
             services.AddScoped<PublisherService>();
